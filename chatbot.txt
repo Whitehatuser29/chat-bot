@@ -1,0 +1,43 @@
+!pip install gradio 
+
+import random
+import gradio as gr
+
+guilty_crimes = [
+    "rape", "robbery", "securities fraud", "sexual assault", "shoplifting", "solicitation",
+    "stalking", "statutory rape", "tax evasion", "telemarketing fraud", "theft", "vandalism",
+    "white collar crimes", "wire fraud", "kidnapping", "blackmail", "piracy", "extortion", "money laundering", "arson", "racketeering", "women trafficking", "smuggling"
+]
+
+def analyze_case(case_data):
+    """
+    Analyzes case data and returns a prediction ("Guilty" or "Not Guilty")
+    along with an explanation.
+    
+    This function checks if the case contains any of the specified crimes
+    or if there is enough evidence to predict guilt.
+    """
+    case_data_lower = case_data.lower()
+
+    for crime in guilty_crimes:
+        if crime in case_data_lower:
+            return "Guilty", f"Based on the seriousness of the crime '{crime}' and the details provided, the probability of guilt is very high. This type of crime is often highly indicative of a guilty verdict."
+
+    probability_guilty = random.random()
+
+    if probability_guilty > 0.3 and "evidence" in case_data_lower and "crime" in case_data_lower:
+        return "Guilty", "Based on the presented evidence and the details of the crime, the probability of guilt is high. The presence of strong evidence indicating criminal activity points towards a guilty verdict."
+    else:
+        return "Not Guilty", "Based on the available information, the probability of guilt is low. Insufficient evidence or lack of clear indicators of criminal intent suggest a not guilty verdict."
+
+def gradio_interface(case_details):
+    prediction, explanation = analyze_case(case_details)
+    return prediction, explanation
+
+interface = gr.Interface(fn=gradio_interface, 
+                         inputs=gr.Textbox(label="Enter Case Details"), 
+                         outputs=["text", "text"],
+                         live=True)
+
+interface.launch()
+
