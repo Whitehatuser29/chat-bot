@@ -6,7 +6,7 @@ import gradio as gr
 guilty_crimes = [
     "rape", "robbery", "securities fraud", "sexual assault", "shoplifting", "solicitation",
     "stalking", "statutory rape", "tax evasion", "telemarketing fraud", "theft", "vandalism",
-    "white collar crimes", "wire fraud", "kidnapping", "blackmail", "piracy", "extortion", "money laundering", "arson", "racketeering", "women trafficking", "smuggling"
+    "white collar crimes", "wire fraud", "kidnapping", "blackmail", "piracy", "extortion", "money laundering", "arson", "racketeering", "women trafficking", "smuggling", "manslaughter", "cyber crime", "domestiv violence", "harassment"
 ]
 
 def analyze_case(case_data):
